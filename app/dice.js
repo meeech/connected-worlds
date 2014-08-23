@@ -8,10 +8,6 @@ define(function(require, exports, module) {
     return 1 + floor(random() * sides);
   };
 
-  var d = {
-    '6': function d6() { return die(6); }
-  };
-
   /**
    *
    * @param  {int} type  sides of dice
@@ -23,7 +19,7 @@ define(function(require, exports, module) {
 
     var total = 0;
     for (var i = 0; i < times; i++) {
-      total += d[type]();
+      total += die(type);
     }
 
     return total;
