@@ -5,9 +5,12 @@ define(function (require) {
   var Planet = require('./planet');
 
   var p1 = new Planet();
-
-
   console.log(p1);
+
+  for (var i = 0; i < 20; i++) {
+    console.log(new Planet());
+  };
+
 
 
 
