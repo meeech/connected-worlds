@@ -108,6 +108,11 @@ define(function(require) {
     return generate.result(roll(6, 3), rvm);
   };
 
+  generate.climate = function(planet) {
+    var climate = require('./climate');
+    return climate.calculate(planet);
+  };
+
   return generate;
 
 });

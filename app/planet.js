@@ -11,7 +11,7 @@ define(function(require) {
     this.density = this.generate('density');
     this.gravity = this.generate('gravity');
     this.resourceValue = this.generate('resourceValue');
-
+    this.climate = this.generate('climate');
     this.fullTypeKey = this.getFullTypeKey();
 
   };
