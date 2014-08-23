@@ -50,7 +50,9 @@ define(function(require){
   };
 
   diameter['garden'] = function() {
-    return generic(4300, 290);
+    var res = roll(6,3);
+    return generic(4300, _.random(13*res, 19*res), res);
+    // return generic(4300, 290);
   };
 
 
