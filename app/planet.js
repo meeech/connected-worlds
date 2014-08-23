@@ -45,62 +45,17 @@ define(function(require, exports, module) {
   };
 
   generate.subType = function(planet) {
-
-    var subTypes = {};
-    subTypes.hostile = {
-      'subgiant': {
-        min: 3,
-        max: 4,
-        label: 'Subgiant'
-      },
-      'ice': {
-        min: 5,
-        max: 6,
-        type: 'desert',
-        label: 'Ice'
-      },
-      'glacier': {
-        min: 7,
-        max: 9,
-        label: 'Glacier'
-      },
-      'pregarden': {
-        min: 10,
-        max: 15,
-        label: 'Pre-Garden'
-      },
-      'greenhouse': {
-        min: 16,
-        max: 18,
-        label: 'Greenhouse'
-      }
-    };
-    subTypes.desert = {
-      'rock': {
-        min: 3,
-        max: 18,
-        label: 'Rock'
-      },
-
-    };
-
-    var subTypeMap = subTypes[planet.type];
-    if(subTypeMap) {
-      var sub = generate.result(roll(6, 3), subTypeMap);
-      var submap = subTypeMap[sub];
-
-      // Possible for a subtype to change the primary type
-      planet.type = submap.type || planet.type;
-      if(submap.type) {
-        planet.type = submap
-      }
-
-
-    } else {
-      return planet.type;
+    var subType;
+    if(planet.type === 'barren') {
+      subType = roll(6,3) < 13 ? 'rock' : 'ice';
+    } else if (planet.type === 'desert') {
+        subType = roll(6,3) < 14 ? 'rock' : 'ice';
+    } else if (planet.type === 'hostile') {
+      subType = roll(6,3) < 13 ? 'glacier' : 'subgiant';
     }
-  };
 
+    return subType;
+  };
 
   var Planet = function Planet(){
 
