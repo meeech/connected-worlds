@@ -1,8 +1,10 @@
 define(function (require) {
 
   var _ = require('lodash');
+  var roll = require('./dice').roll;
 
   var density = {};
+
   var density_modifiers = {};
 
   var min_max = require('./result').min_max;
@@ -22,7 +24,7 @@ define(function (require) {
     {min: 8751, mod: -8},
   ];
 
-  density['large-iron-core'] = [
+  var large_iron_core = [
     {
       density: 0.8,
       max: 6
@@ -59,6 +61,17 @@ define(function (require) {
   ];
 
 
+  var density_lookup = {
+    'barren-ice': 'icy-core',
+    'barren-rock': 'small-iron-core',
+    'desert-ice': 'icy-core',
+    'desert-rock': 'small-iron-core',
+    'garden': large_iron_core,
+    'hostile-glacier': large_iron_core,
+    'hostile-subgiant': large_iron_core
+  };
+
+
   function getModifier (type, diameter) {
     var mod = _.find(density_modifiers[type], min_max(diameter));
 
@@ -73,13 +86,11 @@ define(function (require) {
   density.calculate = function(planet) {
 
     var mod = getModifier(planet.type.key, planet.diameter);
+    var map = density_lookup[planet.getFullTypeKey()];
+    var res = roll(6,3) + mod;
 
-    if(mod) {}
-    console.log(mod);
-
-
-
-
+    d = _.find(map, min_max(res) );
+    return d.density;
   };
 
   return density;

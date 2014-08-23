@@ -9,7 +9,8 @@ define(function(require) {
     this.subtype = this.generate('subtype');
     this.diameter = this.generate('diameter');
     this.density = this.generate('density');
-
+    this.gravity = this.generate('gravity');
+    this.resourceValue = this.generate('resourceValue');
 
     this.fullTypeKey = this.getFullTypeKey();
 

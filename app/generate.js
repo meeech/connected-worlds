@@ -84,17 +84,28 @@ define(function(require) {
   generate.density = function(planet) {
     // test with garden first...
     var type = planet.type.key;
-    if(planet.type.key !== "garden") {
+    if(type !== "garden") {
       return 1.0;
     }
 
-    var res = roll(6, 3);
+    return density.calculate(planet);
+  };
 
-    density.calculate(planet);
-    // var mod = density.getModifier('garden', planet.diameter)
+  generate.gravity = function(body) {
+    var G = (body.density * body.diameter)/7930;
+    return parseFloat(G.toFixed(2));
+  };
 
-    //lookup modifier
+  generate.resourceValue = function(planet) {
+    var rvm = [
+      { min: 3, max: 4, rvm: -2, label: "Very Poor"},
+      { min: 5, max: 7, rvm: -1, label: "Poor"},
+      { min: 8, max: 13, rvm: 0, label: "Average"},
+      { min: 14, max: 16, rvm: 1, label: "Rich"},
+      { min: 17, max: 18, rvm: 2, label: "Very Rich"},
+    ];
 
+    return generate.result(roll(6, 3), rvm);
   };
 
   return generate;
