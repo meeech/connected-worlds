@@ -1,6 +1,7 @@
 define(function (require) {
 
   var _game;
+  var Phaser = require('phaser');
   var draw = require('./draw/index');
 
   //@todo move dimension into common file
@@ -33,9 +34,29 @@ define(function (require) {
   var choice_handler = function(planet, alternate_sprite) {
 
     return function(sprite) {
-      alternate_sprite.destroy();
+      sprite.events.onInputUp.removeAll();
+
+      var alt_tween = _game.add.tween(alternate_sprite).to(
+        { alpha: 0 },
+        1000,
+        Phaser.Easing.Linear.None,
+        true
+      );
+
+      alt_tween.onComplete.add(function(e){
+        e.destroy();
+      });
+
+      _game.add.tween(sprite).to(
+        {y: SCREEN_HEIGHT_MIDDLE},
+        1000,
+        Phaser.Easing.Linear.Sinusoidal,
+        true
+      );
+
       var world = new World(GALAXY, planet);
       world.sprite = sprite;
+      sprite.associatedWorld = world;
       place_choices();
     };
 
