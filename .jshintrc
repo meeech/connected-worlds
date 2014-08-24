@@ -1,0 +1,10 @@
+{
+  "sub": true,
+  "unused": "vars",
+  "undef": true,
+
+  "devel": true,
+  "globals": {
+    "define": false
+  }
+}
