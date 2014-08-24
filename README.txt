@@ -6,4 +6,6 @@ Goal (TBD)
 
 Thanks
 
-GURPS for some world building guidance
+* GURPS for some world building guidance
+* World Map Generator: http://donjon.bin.sh/scifi/world/
+* Sounds: sfxr: http://www.drpetter.se/project_sfxr.html
