@@ -1,27 +1,18 @@
 define(function (require) {
 
-  var Galaxy = {
+  // var Galaxy = require('./galaxy');
+  // var World = require('./world');
 
-    // base TL for game
-    techLevel: 9,
-
-    // keep track of all worlds
-    worlds: []
-
-  };
-
-  var World = require('./world');
-
-  var i;
-  for (i = 0; i < 20; i++) {
-    var w = new World(Galaxy);
-    // console.log(name.person());
-    // console.log(name.planet());
-    console.log(w.report(), w);
-  }
+  // var i;
+  // for (i = 0; i < 3; i++) {
+  //   var w = new World(Galaxy);
+  //   // console.log(name.person());
+  //   // console.log(name.planet());
+  //   console.log(w.report(), w);
+  // }
 
 
-  var game = require('./game');
+  require('./game');
 
 
 
