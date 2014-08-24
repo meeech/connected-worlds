@@ -155,13 +155,19 @@ define(function(require) {
   };
 
 
+  var log10 = Math.log10;
+  if(!log10) {
+    log10 = function(value){
+      return Math.log(value) / Math.LN10;
+    };
+  }
+
   World.prototype.generatePR = function() {
 
     if(this.population < 1) {
       return 0;
     }
-
-    return parseInt(Math.log10(this.population), 10);
+    return parseInt(log10(this.population), 10);
 
   };
 
