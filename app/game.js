@@ -47,27 +47,43 @@ define(function (require) {
 
     game.load.image('starfield', 'img/pixel/star-bg.png');
 
+    game.load.bitmapFont('carrier_command', 'fonts/carrier_command.png', 'fonts/carrier_command.xml');
+
+
+  }
+
+  function create_bg () {
+    var i;
+    var image_width = 800;
+    var reps = Math.ceil(SCREEN_WIDTH / image_width);
+    for ( i = 0; i < reps; i++) {
+       game.add.tileSprite(i * image_width, 0, image_width, 800, 'starfield').fixedToCamera = true;
+    }
   }
 
   function create () {
+    create_bg();
 
-    var starfield = game.add.tileSprite(0, 0, 800, 800, 'starfield');
-    starfield.fixedToCamera = true;
+    // var i;
+    // for ( i = 0; i < 10; i++) {
 
-    var i;
-    for ( i = 0; i < 10; i++) {
+    //   var w1 = new World(Galaxy);
+    //   var x = i * 200 + 50;
+    //   draw.planet(w1.planet, x, SCREEN_HEIGHT_MIDDLE);
 
-      var w1 = new World(Galaxy);
-      var x = i * 200 + 50;
-      draw.planet(w1.planet, x, SCREEN_HEIGHT_MIDDLE);
-
-    }
+    // }
 
     cursors = game.input.keyboard.createCursorKeys();
     mouse = game.input.mousePointer;
     touch = game.input.pointer1;
 
-    game.world.setBounds(0,0, 400 + (300*Galaxy.worlds.length) , 400);
+    // game.world.setBounds(0,0, 400 + (300*Galaxy.worlds.length) , 400);
+    game.world.setBounds(0,0, 3000 , 400);
+
+    var play = require('./play');
+    play.init(game);
+    play.start();
+
 
   }
 

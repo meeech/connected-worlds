@@ -15,11 +15,16 @@ define(function(require) {
   var Society = require('./society');
   var Economy = require('./economy');
 
-  var World = function World(Galaxy){
+  /**
+   * Create a new world in the Galaxy
+   * @param {obj} Galaxy
+   * @param {Planet} [planet] If no planet provided, will generate one.
+   */
+  var World = function World(Galaxy, planet){
 
     this.galaxy = Galaxy;
 
-    this.planet = new Planet();
+    this.planet = planet || new Planet();
 
     this.name = require('./name').planet();
 
