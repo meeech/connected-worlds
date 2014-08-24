@@ -4,7 +4,7 @@ define(function (require) {
 
   var SCREEN_HEIGHT = 400;
   var SCREEN_HEIGHT_MIDDLE = SCREEN_HEIGHT * 0.5 ;
-  var game = new Phaser.Game(800, SCREEN_HEIGHT, Phaser.AUTO, '', {
+  var game = new Phaser.Game(600, SCREEN_HEIGHT, Phaser.AUTO, '', {
       preload: preload,
       create: create,
       update: update
@@ -33,7 +33,7 @@ define(function (require) {
       'garden-w25',
       'garden-w50',
       'garden-w75',
-      'garden-w95',
+      'garden-w100',
       'hostile-glacier',
       'hostile-subgiant'
     ];
@@ -51,16 +51,18 @@ define(function (require) {
     var starfield = game.add.tileSprite(0, 0, 800, 800, 'starfield');
     starfield.fixedToCamera = true;
 
-    for (var i = 0; i < 20; i++) {
+    var i;
+    for ( i = 0; i < 10; i++) {
 
       var w1 = new World(Galaxy);
-      var x = i * 200 + 20;
+      var x = i * 200 + 50;
       draw.planet(w1.planet, x, SCREEN_HEIGHT_MIDDLE);
 
     }
 
     cursors = game.input.keyboard.createCursorKeys();
-    game.world.setBounds(0,0,40000, 400);
+
+    game.world.setBounds(0,0, 400 + (300*Galaxy.worlds.length) , 400);
 
   }
 
@@ -75,14 +77,6 @@ define(function (require) {
         game.camera.x += 8;
     }
 
-    // if (cursors.up.isDown)
-    // {
-    //     tilesprite.tilePosition.y += 8;
-    // }
-    // else if (cursors.down.isDown)
-    // {
-    //     tilesprite.tilePosition.y -= 8;
-    // }
   }
 
 

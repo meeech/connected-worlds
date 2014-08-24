@@ -37,6 +37,8 @@ define(function(require) {
     this.society = new Society(this);
     this.economy = new Economy(this);
 
+    Galaxy.worlds.push(this);
+
   };
 
   World.prototype.report = function(first_argument) {
