@@ -7,11 +7,18 @@ define(function (require) {
   var World = require('./world');
   // var Planet = require('./planet');
 
+  var name = require('./name');
+
   var i;
   for (i = 0; i < 20; i++) {
     var w = new World(Galaxy);
+    // console.log(name.person());
+    // console.log(name.planet());
     console.log(w.report(), w);
   }
+
+
+
 
 /*  var roll = require('./dice').roll;
   var basesize = 7500;

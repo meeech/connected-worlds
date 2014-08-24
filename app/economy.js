@@ -14,7 +14,7 @@ define(function (require) {
     this.wealthLevel = this.generateWealthLevel();
 
     this.economicVolume = this.perCapita * this.world.population;
-    console.log(number.nice(this.economicVolume));
+
   }
 
   var getBasePerCapitaForTech = function(tl) {

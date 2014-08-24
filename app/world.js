@@ -21,6 +21,8 @@ define(function(require) {
 
     this.planet = new Planet();
 
+    this.name = require('./name').planet();
+
     //Mutually exclusive
     this.isHomeworld = true;
     this.isColony = false;
@@ -39,6 +41,7 @@ define(function(require) {
 
   World.prototype.report = function(first_argument) {
     return {
+      'Name': this.name,
       'Class': this.planet.getFullTypeKey(),
       'population rating': this.populationRating,
       population: number.nice(this.population),
