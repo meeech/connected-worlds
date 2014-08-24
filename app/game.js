@@ -15,6 +15,8 @@ define(function (require) {
   );
 
   var cursors;
+  var mouse;
+  var touch;
   // var input;
 
   var draw = require('./draw/index');
@@ -62,6 +64,8 @@ define(function (require) {
     }
 
     cursors = game.input.keyboard.createCursorKeys();
+    mouse = game.input.mousePointer;
+    touch = game.input.pointer1;
 
     game.world.setBounds(0,0, 400 + (300*Galaxy.worlds.length) , 400);
 
@@ -69,27 +73,30 @@ define(function (require) {
 
   function update () {
 
-    if (cursors.left.isDown)
-    {
+    if (cursors.left.isDown) {
         game.camera.x -= 8;
-    }
-    else if (cursors.right.isDown)
-    {
+    } else if (cursors.right.isDown) {
         game.camera.x += 8;
     }
 
+    move_camera_by_pointer(mouse);
+    move_camera_by_pointer(touch);
+
   }
 
-
-
-
-
-
-
-
-
-
-
+  //@todo move pointer/controls out
+  var o_mcamera;
+  function move_camera_by_pointer(o_pointer) {
+    if (!o_pointer.timeDown) { return; }
+    if (o_pointer.isDown && !o_pointer.targetObject) {
+      if (o_mcamera) {
+        game.camera.x += o_mcamera.x - o_pointer.position.x;
+        game.camera.y += o_mcamera.y - o_pointer.position.y;
+      }
+      o_mcamera = o_pointer.position.clone();
+    }
+    if (o_pointer.isUp) { o_mcamera = null; }
+  }
 
   return game;
 
