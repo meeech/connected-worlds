@@ -17,21 +17,35 @@ define(function(require) {
 
     this.planet = new Planet();
 
+    //Mutually exclusive
+    this.isHomeworld = true;
+    this.isColony = false;
+
     this.techLevel = this.generateTechLevel(Galaxy.techLevel);
 
     this.capacity = this.generateCapacity();
     this.population = this.generatePopulation();
+    this.populationRating = this.generatePR();
+    this.growthRate = 0.023;
+
+    this.society = {
+
+    };
 
   };
 
   World.prototype.report = function(first_argument) {
     return {
-      population: number.nice(this.population)
+      'Class': this.planet.getFullTypeKey(),
+      'population rating': this.populationRating,
+      population: number.nice(this.population),
+      overpopulated: this.population > this.capacity
     };
   };
 
   World.prototype.generateCapacity = function() {
 
+    //Tech level based
     var base_cap = {
       0: 10000,
       1: 100000,
@@ -47,6 +61,7 @@ define(function(require) {
       11: 40000000
     };
 
+    //Affinity
     var cap_multiplier = {
       10: 1000,
       9: 500,
@@ -88,11 +103,12 @@ define(function(require) {
 
     if(!affinity) {
       console.log('World uninhabitable.');
-      return false;
+      return 0;
     }
 
     var pop;
 
+    // Homeworld appropriate calc
     if(this.techLevel < 5) {
       pop = ( (roll(6,2) + 3) / 10 ) * this.capacity;
     } else {
@@ -100,10 +116,6 @@ define(function(require) {
     }
 
     return Math.floor(pop);
-
-    // var mod = affinity * 3;
-    // var score = roll(6, 3) + mod;
-    // return score;
 
   };
 
@@ -120,6 +132,17 @@ define(function(require) {
     ];
     var mod = _.find(TLs, min_max(roll(6,3))).tl;
     return mod + baseLevel;
+  };
+
+
+  World.prototype.generatePR = function() {
+
+    if(this.population < 1) {
+      return 0;
+    }
+
+    return parseInt(Math.log10(this.population), 10);
+
   };
 
 
