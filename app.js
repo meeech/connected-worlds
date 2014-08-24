@@ -7,7 +7,13 @@ requirejs.config({
     baseUrl: 'lib',
     paths: {
         app: '../app',
-        lodash: 'lodash.min'
+        lodash: 'lodash.min',
+        phaser: 'phaser.min'
+    },
+    shim: {
+      'phaser': {
+        exports: 'Phaser'
+      }
     }
 });
 

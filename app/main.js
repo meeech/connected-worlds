@@ -1,13 +1,16 @@
 define(function (require) {
 
   var Galaxy = {
-    techLevel: 9
+
+    // base TL for game
+    techLevel: 9,
+
+    // keep track of all worlds
+    worlds: []
+
   };
 
   var World = require('./world');
-  // var Planet = require('./planet');
-
-  var name = require('./name');
 
   var i;
   for (i = 0; i < 20; i++) {
@@ -16,6 +19,12 @@ define(function (require) {
     // console.log(name.planet());
     console.log(w.report(), w);
   }
+
+
+  var game = require('./game');
+
+
+
 
 
 
