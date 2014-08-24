@@ -4,13 +4,17 @@ define(function (require) {
   var roll = require('./dice').roll;
   var min_max = require('./result').min_max;
 
+  var number = require('./number');
+
   function Economy(World) {
 
     this.world = World;
 
     this.perCapita = this.generatePerCapita();
     this.wealthLevel = this.generateWealthLevel();
-    console.log(this.wealthLevel);
+
+    this.economicVolume = this.perCapita * this.world.population;
+    console.log(number.nice(this.economicVolume));
   }
 
   var getBasePerCapitaForTech = function(tl) {

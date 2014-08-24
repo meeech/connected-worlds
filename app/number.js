@@ -4,6 +4,7 @@ define(function (require) {
   var _ = require('lodash');
 
   var scales = [
+    { scale: 1000000000000, abbr: 'T' },
     { scale: 1000000000, abbr: 'B' },
     { scale: 1000000, abbr: 'M' },
     { scale: 1000, abbr: 'K' }
