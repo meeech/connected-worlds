@@ -12,6 +12,7 @@ define(function(require) {
   var min_max = require('./result').min_max;
 
   var Planet = require('./planet');
+  var Society = require('./society');
 
   var World = function World(Galaxy){
 
@@ -28,9 +29,7 @@ define(function(require) {
     this.populationRating = this.generatePR();
     this.growthRate = 0.023;
 
-    this.society = {
-
-    };
+    this.society = new Society(this);
 
   };
 
@@ -39,7 +38,8 @@ define(function(require) {
       'Class': this.planet.getFullTypeKey(),
       'population rating': this.populationRating,
       population: number.nice(this.population),
-      overpopulated: this.population > this.capacity
+      overpopulated: this.population > this.capacity,
+      society_type: this.society.getTypeKey()
     };
   };
 
