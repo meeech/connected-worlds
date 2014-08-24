@@ -6,7 +6,7 @@ define(function (require) {
 
   function Society(World) {
 
-    this.World = World;
+    this.world = World;
 
     this.unity = this.generateUnity();
     this.type = this.generateType();
@@ -90,7 +90,7 @@ define(function (require) {
       }
     ];
 
-    var res = roll(6,3) + this.World.techLevel;
+    var res = roll(6,3) + this.world.techLevel;
     var type = _.find(mapping, min_max(res));
 
     var modifier_mappings = [

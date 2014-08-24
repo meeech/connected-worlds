@@ -13,8 +13,11 @@ define(function(require) {
 
   var Planet = require('./planet');
   var Society = require('./society');
+  var Economy = require('./economy');
 
   var World = function World(Galaxy){
+
+    this.galaxy = Galaxy;
 
     this.planet = new Planet();
 
@@ -22,7 +25,7 @@ define(function(require) {
     this.isHomeworld = true;
     this.isColony = false;
 
-    this.techLevel = this.generateTechLevel(Galaxy.techLevel);
+    this.techLevel = this.generateTechLevel(this.galaxy.techLevel);
 
     this.capacity = this.generateCapacity();
     this.population = this.generatePopulation();
@@ -30,6 +33,7 @@ define(function(require) {
     this.growthRate = 0.023;
 
     this.society = new Society(this);
+    this.economy = new Economy(this);
 
   };
 
@@ -38,11 +42,18 @@ define(function(require) {
       'Class': this.planet.getFullTypeKey(),
       'population rating': this.populationRating,
       population: number.nice(this.population),
-      overpopulated: this.population > this.capacity,
+      overpopulated: this.isOverpopulated(),
       society_type: this.society.getTypeKey()
     };
   };
 
+  World.prototype.isOverpopulated = function(first_argument) {
+    return this.population > this.capacity;
+  };
+
+  /**
+   * @return {int}
+   */
   World.prototype.generateCapacity = function() {
 
     //Tech level based
@@ -97,6 +108,10 @@ define(function(require) {
 
   };
 
+  /**
+   *
+   * @return {int}
+   */
   World.prototype.generatePopulation = function() {
 
     var affinity = this.planet.affinity;
