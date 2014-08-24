@@ -1,13 +1,20 @@
 define(function (require) {
 
+  var Galaxy = {
+    techLevel: 10
+  };
+
+  var World = require('./world');
   var Planet = require('./planet');
-  var p1 = new Planet();
-  console.log(p1);
 
   var i;
   for (i = 0; i < 20; i++) {
-    console.log(new Planet());
+    console.log(new World(Galaxy));
   }
+
+  // for (i = 0; i < 10; i++) {
+  //   console.log(new Planet());
+  // }
 /*
   var roll = require('./dice').roll;
   var basesize = 7500;

@@ -113,6 +113,52 @@ define(function(require) {
     return climate.calculate(planet);
   };
 
+  //percent
+  generate.waterCoverage = function(planet) {
+
+    var coverage = 0;
+    var key = planet.getFullTypeKey();
+    if(key === 'garden') {
+      coverage = _.random(0,100);
+    } else if (_.contains(key, 'glacier')) {
+      coverage = _.random(0,20);
+    } else if (_.contains(key, 'desert-ice')) {
+      coverage = _.random(0,100);
+    }
+
+    return coverage;
+
+  };
+
+  // simplified. Only garden, working on asumption of relatively similar
+  // based life for now.
+  generate.affinity = function(planet){
+    var aff = 0;
+    aff += planet.resourceValue.rvm;
+    if(planet.type.key !== 'garden') {
+      return aff;
+    }
+
+    aff += 3;
+    aff += 2; //decent atmosphere
+
+    if(planet.waterCoverage > 29 && planet.waterCoverage < 91 ) {
+      aff += 2;
+    } else {
+      aff += 1;
+    }
+
+    var climate = planet.climate;
+    if(climate.score > 4 && climate.score < 16) {
+      aff += 2;
+    } else if(climate.score === 4 || climate.score === 16) {
+      aff += 1;
+    }
+
+    return aff;
+
+  };
+
   return generate;
 
 });

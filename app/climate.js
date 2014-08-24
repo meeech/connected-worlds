@@ -19,7 +19,9 @@ define(function(require) {
   ];
 
   climate.calculate = function(planet) {
-    return _.find(climate_mapping, min_max(roll(6, 3)));
+    var score = roll(6, 3);
+    var c = _.find(climate_mapping, min_max(score));
+    return _.assign({}, c, {score: score});
   };
 
   return climate;
