@@ -2,6 +2,8 @@ define(function(require) {
 
   var generate = require('./generate');
 
+  var EARTH_DIAMETER = 7926;
+
   var Planet = function Planet(){
 
     this.type = this.generate('type');
@@ -19,8 +21,14 @@ define(function(require) {
 
   };
 
+  Planet.prototype.report = function() {};
+
   Planet.prototype.generate = function(attrib) {
     return generate[attrib](this);
+  };
+
+  Planet.prototype.getEarthDiameters = function() {
+    return this.diameter / EARTH_DIAMETER;
   };
 
   Planet.prototype.getFullTypeKey = function() {

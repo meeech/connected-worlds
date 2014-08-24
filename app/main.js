@@ -1,15 +1,16 @@
 define(function (require) {
 
   var Galaxy = {
-    techLevel: 10
+    techLevel: 9
   };
 
   var World = require('./world');
-  var Planet = require('./planet');
+  // var Planet = require('./planet');
 
   var i;
   for (i = 0; i < 20; i++) {
-    console.log(new World(Galaxy));
+    var w = new World(Galaxy);
+    console.log(w.report(), w);
   }
 
   // for (i = 0; i < 10; i++) {
@@ -28,7 +29,13 @@ define(function (require) {
 
   }
 */
-
-
+// var roll = require('./dice').roll;
+// var coll = {};
+// for (var i = 0; i < 1000; i++) {
+//   var r = roll(6,3);
+//   coll[r] = coll[r] || 1;
+//   coll[r]++;
+// };
+// console.log(coll);
 
 });
