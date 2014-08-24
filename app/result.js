@@ -10,8 +10,8 @@ define(function() {
    */
   result.min_max = function(res){
     return function(value) {
-      var min = value.min || -Infinity;
-      var max = value.max || Infinity;
+      var min = (value.min !== undefined) ? value.min : -Infinity;
+      var max = (value.max !== undefined) ? value.max : Infinity;
 
       return res >= min && res <= max;
     };
