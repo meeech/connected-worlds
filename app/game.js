@@ -4,7 +4,8 @@ define(function (require) {
 
   var SCREEN_HEIGHT = 400;
   var SCREEN_HEIGHT_MIDDLE = SCREEN_HEIGHT * 0.5 ;
-  var game = new Phaser.Game(600, SCREEN_HEIGHT, Phaser.AUTO, '', {
+  var SCREEN_WIDTH = document.body.offsetWidth || 600;
+  var game = new Phaser.Game(SCREEN_WIDTH, SCREEN_HEIGHT, Phaser.AUTO, '', {
       preload: preload,
       create: create,
       update: update
