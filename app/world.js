@@ -127,7 +127,7 @@ define(function(require) {
     var affinity = this.planet.affinity;
 
     if(!affinity) {
-      console.log('World uninhabitable.');
+      // console.log('World uninhabitable.');
       return 0;
     }
 

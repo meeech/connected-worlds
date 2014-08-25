@@ -37,7 +37,7 @@ define(function (require) {
     var numWorlds = GALAXY.worlds.length;
 
     if(numWorlds < 2) {
-      console.log('No neighbours');
+      // console.log('No neighbours');
       return;
     }
 
