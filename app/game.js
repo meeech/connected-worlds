@@ -78,7 +78,7 @@ define(function (require) {
     touch = game.input.pointer1;
 
     // game.world.setBounds(0,0, 400 + (300*Galaxy.worlds.length) , 400);
-    game.world.setBounds(0,0, 3000 , 400);
+    game.world.setBounds(0,0, SCREEN_WIDTH , 400);
 
     var play = require('./play');
     play.init(game);
@@ -88,6 +88,8 @@ define(function (require) {
   }
 
   function update () {
+
+    game.world.setBounds(0,0, SCREEN_WIDTH + (300*Galaxy.worlds.length) , 400);
 
     if (cursors.left.isDown) {
         game.camera.x -= 8;

@@ -7,6 +7,7 @@ define(function (require) {
   //@todo move dimension into common file
   var SCREEN_HEIGHT = 400;
   var SCREEN_HEIGHT_MIDDLE = SCREEN_HEIGHT * 0.5 ;
+  var SCREEN_WIDTH = document.body.offsetWidth || 600;
 
   var GALAXY = require('./galaxy');
   var World = require('./world');
@@ -19,6 +20,7 @@ define(function (require) {
   }
 
   var next_X = 150;
+  var X_step = 300;
   var yA = 100;
   var yB = 300;
 
@@ -28,6 +30,49 @@ define(function (require) {
     var t = _game.add.bitmapText(0, 0, 'carrier_command',str,size);
     return t;
   }
+
+  function planet_report_sprite(world) {
+
+    var report = world.report();
+
+    var str = [];
+    str.push("pop: " + report.population);
+    str.push("type: " + report['class']);
+    str.push(report.society_type);
+    str.push("tech lvl: " + world.techLevel);
+    var ts = text(str.join("\n\n"), 9);
+    ts.multiline = true;
+    ts.align = "center";
+
+    return ts;
+
+  }
+
+  function toggle_sprite_title(sprite) {
+    var world = sprite.associatedWorld;
+
+    if(sprite.titleSprite) {
+      sprite.titleSprite.destroy();
+      sprite.titleSprite = null;
+      sprite.reportSprite.destroy();
+      sprite.reportSprite = null;
+    } else {
+      var titleSprite = text(world.name, 10);
+      titleSprite.x = sprite.x - (titleSprite.width * 0.5);
+      titleSprite.y = sprite.y + (sprite.height * 0.5) + 15;
+      sprite.titleSprite = titleSprite;
+
+      var reportSprite = planet_report_sprite(world);
+      reportSprite.x = sprite.x - (reportSprite.width * 0.5);
+      reportSprite.y = titleSprite.y + titleSprite.height + 20;
+      sprite.reportSprite = reportSprite;
+    }
+  }
+
+  // Give the report on the planet.
+  var world_click_handler = function(sprite){
+    toggle_sprite_title(sprite);
+  };
 
   var choose_text;
 
@@ -43,16 +88,24 @@ define(function (require) {
         true
       );
 
-      alt_tween.onComplete.add(function(e){
-        e.destroy();
+      alt_tween.onComplete.add(function(s){
+        s.destroy();
       });
 
-      _game.add.tween(sprite).to(
+      var s_tween = _game.add.tween(sprite).to(
         {y: SCREEN_HEIGHT_MIDDLE},
-        1000,
+        750,
         Phaser.Easing.Linear.Sinusoidal,
         true
       );
+
+      s_tween.onComplete.add(toggle_sprite_title);
+
+      sprite.events.onInputUp.add(world_click_handler, this);
+
+      if(next_X > (SCREEN_WIDTH * 0.75)) {
+        _game.add.tween(_game.camera).to({x: _game.camera.x + X_step}, 900, Phaser.Easing.Linear.Sinusoidal, true);
+      }
 
       var world = new World(GALAXY, planet);
       world.sprite = sprite;
@@ -86,7 +139,7 @@ define(function (require) {
     choose_text.x = next_X - 100;
     choose_text.y = SCREEN_HEIGHT_MIDDLE - 20;
 
-    next_X += 300;
+    next_X += X_step;
   }
 
 

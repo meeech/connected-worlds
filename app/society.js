@@ -21,6 +21,14 @@ define(function (require) {
     return s;
   };
 
+  Society.prototype.getTypeLabel = function() {
+    var s = this.type.label;
+    if(this.type.modifier) {
+      s = s + ' ' + this.type.modifier.label;
+    }
+    return s;
+  };
+
   Society.prototype.generateType = function() {
 
     var mapping = [
@@ -50,20 +58,20 @@ define(function (require) {
       {
         key: 'theo',
         min: 12,
-        max: 12,
-        label: 'Theocracy'
+        max: 15,
+        label: 'Theocratic'
       },
       {
         key: 'repdem',
         min: 16,
         max: 18,
-        label: 'Democracy'
+        label: 'Democratic'
       },
       {
         key: 'athdem',
         min: 19,
         max: 20,
-        label: 'Democracy'
+        label: 'Democratic'
       },
       {
         key: 'corp',
@@ -75,7 +83,7 @@ define(function (require) {
         key: 'techno',
         min: 23,
         max: 25,
-        label: 'Tehnocracy'
+        label: 'Tehnocratic'
       },
       {
         key: 'caste',

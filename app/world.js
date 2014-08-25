@@ -48,12 +48,12 @@ define(function(require) {
 
   World.prototype.report = function(first_argument) {
     return {
-      'Name': this.name,
-      'Class': this.planet.getFullTypeKey(),
-      'population rating': this.populationRating,
-      population: number.nice(this.population),
-      overpopulated: this.isOverpopulated(),
-      society_type: this.society.getTypeKey()
+      'name': this.name,
+      'class': this.planet.getFullTypeKey(),
+      'population_rating': this.populationRating,
+      'population': number.nice(this.population),
+      'overpopulated': this.isOverpopulated(),
+      'society_type': this.society.getTypeLabel()
     };
   };
 
