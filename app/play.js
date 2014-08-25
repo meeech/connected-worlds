@@ -31,6 +31,40 @@ define(function (require) {
     return t;
   }
 
+
+  function attach_to_neighbour() {
+
+    var numWorlds = GALAXY.worlds.length;
+
+    if(numWorlds < 2) {
+      console.log('No neighbours');
+      return;
+    }
+
+    var right = GALAXY.worlds[numWorlds-1].sprite;
+    var left = GALAXY.worlds[numWorlds-2].sprite;
+
+    var half_left_buffer = (left.width * 0.5) + 15;
+    var half_right_buffer = (right.width * 0.5) + 15;
+
+    var line = new Phaser.Line();
+    line.fromSprite(left, right);
+
+    var graphics = _game.add.graphics(0, 0);
+
+    // set a fill and line style
+    graphics.beginFill(0x81DAF5);
+    graphics.lineStyle(3, 0x81DAF5, 1);
+
+    graphics.moveTo(line.start.x + half_left_buffer, line.start.y);
+    graphics.lineTo(line.end.x - half_right_buffer, line.end.y);
+    graphics.alpha = 0.5;
+
+    left.bringToTop();
+    right.bringToTop();
+
+  }
+
   function planet_report_sprite(world) {
 
     var report = world.report();
@@ -81,6 +115,10 @@ define(function (require) {
     return function(sprite) {
       sprite.events.onInputUp.removeAll();
 
+      var world = new World(GALAXY, planet);
+      world.sprite = sprite;
+      sprite.associatedWorld = world;
+
       var alt_tween = _game.add.tween(alternate_sprite).to(
         { alpha: 0 },
         1000,
@@ -100,6 +138,7 @@ define(function (require) {
       );
 
       s_tween.onComplete.add(toggle_sprite_title);
+      s_tween.onComplete.add(attach_to_neighbour);
 
       sprite.events.onInputUp.add(world_click_handler, this);
 
@@ -107,9 +146,6 @@ define(function (require) {
         _game.add.tween(_game.camera).to({x: _game.camera.x + X_step}, 900, Phaser.Easing.Linear.Sinusoidal, true);
       }
 
-      var world = new World(GALAXY, planet);
-      world.sprite = sprite;
-      sprite.associatedWorld = world;
       place_choices();
     };
 
