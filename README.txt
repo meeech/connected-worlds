@@ -13,6 +13,7 @@ Todo
 
 Thanks
 =
+* Phaser.io for the game engine
 * GURPS for some world building guidance
 * World Map Generator: http://donjon.bin.sh/scifi/world/
 * Starfield Generator: https://github.com/wwwtyro/procedural.js
