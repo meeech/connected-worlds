@@ -8,13 +8,13 @@ define(function (require) {
   var density_modifiers = {};
 
   var min_max = require('./result').min_max;
-  // density_modifiers['barren-ice'] = [
-  //   {max: 1200, mod: -4},
-  //   {max: 1700, mod: -1},
-  //   {max: 2200, mod: 0},
-  //   {max: 2700, mod: -4},
-  //   {min: 2701, mod: -8}
-  // ];
+  density_modifiers['barren-ice'] = [
+    {max: 1200, mod: -4},
+    {max: 1700, mod: -1},
+    {max: 2200, mod: 0},
+    {max: 2700, mod: -4},
+    {min: 2701, mod: -8}
+  ];
 
   density_modifiers['garden'] = [
     {max: 4750, mod: 15},
