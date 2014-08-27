@@ -4,10 +4,10 @@ define(function (require) {
   var Phaser = require('phaser');
   var draw = require('./draw/index');
 
+
   //@todo move dimension into common file
-  var SCREEN_HEIGHT = 400;
-  var SCREEN_HEIGHT_MIDDLE = SCREEN_HEIGHT * 0.5 ;
-  var SCREEN_WIDTH = document.body.offsetWidth || 600;
+  var SCREEN_HEIGHT_MIDDLE = require('./dimensions').middle_y;
+  var SCREEN_WIDTH = require('./dimensions').width;
 
   var GALAXY = require('./galaxy');
   var World = require('./world');

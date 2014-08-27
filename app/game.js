@@ -2,9 +2,9 @@ define(function (require) {
 
   var Phaser = require('phaser');
 
-  var SCREEN_HEIGHT = 400;//= document.body.offsetHeight;
-  // var SCREEN_HEIGHT_MIDDLE = SCREEN_HEIGHT * 0.5 ;
-  var SCREEN_WIDTH = document.body.offsetWidth || 600;
+  var SCREEN_HEIGHT = require('./dimensions').height;
+  var SCREEN_WIDTH = require('./dimensions').width;
+
   var game = new Phaser.Game(SCREEN_WIDTH, SCREEN_HEIGHT, Phaser.AUTO, '', {
       preload: preload,
       create: create,
@@ -17,14 +17,12 @@ define(function (require) {
   var cursors;
   var mouse;
   var touch;
-  // var input;
 
   var draw = require('./draw/index');
   draw.init(game);
 
   //Actors
   var Galaxy = require('./galaxy');
-  var World = require('./world');
 
   function preload () {
 
