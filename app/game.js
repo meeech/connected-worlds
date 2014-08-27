@@ -109,10 +109,10 @@ define(function (require) {
     // Input handling for moving the camera
     if (cursors.left.isDown) {
         game.camera.x -= 8;
-        scrollBgLeft();
+        if(!game.camera.atLimit.x) scrollBgLeft();
     } else if (cursors.right.isDown) {
         game.camera.x += 8;
-        scrollBgRight();
+        if(!game.camera.atLimit.x) scrollBgRight();
     }
 
     move_camera_by_pointer(mouse);
