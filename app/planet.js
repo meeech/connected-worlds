@@ -2,11 +2,13 @@ define(function(require) {
 
   var generate = require('./generate');
 
+  var roll = require('./dice').roll;
+
   var EARTH_DIAMETER = 7926;
 
   var Planet = function Planet(){
 
-    this.type = this.generate('type');
+    this.type = this.generateType();
 
     this.subtype = this.generate('subtype');
     this.diameter = this.generate('diameter');
@@ -16,8 +18,6 @@ define(function(require) {
     this.climate = this.generate('climate');
     this.waterCoverage = this.generate('waterCoverage');
     this.affinity = this.generate('affinity');
-
-    this.fullTypeKey = this.getFullTypeKey();
 
   };
 
@@ -37,6 +37,14 @@ define(function(require) {
 
   Planet.prototype.getFullTypeName = function() {
     return this.type.name + ( (this.subtype.name) ?  '(' + this.subtype.name + ')' : '' );
+  };
+
+  Planet.prototype.generateType = function() {
+
+    var types = require('./tables/planet').types;
+    var res = roll(types.roll);
+    return generate.result(res, types.table);
+
   };
 
 

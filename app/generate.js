@@ -15,37 +15,6 @@ define(function(require) {
 
   generate.type = function(planet){
 
-    //4d6
-    var types = [
-      {
-        min: 4,
-        max: 9,
-        key: "barren",
-        name: "Barren"
-      },
-      {
-        min: 10,
-        max: 10,
-        key: "desert",
-        name: "Desert"
-      },
-      {
-        min: 11,
-        max: 20,
-        key: "garden",
-        name: "Garden"
-      },
-      {
-        min: 21,
-        max: 24,
-        key: "hostile",
-        name: "Hostile"
-      }
-    ];
-
-    var res = roll(6, 4);
-    return generate.result(res, types);
-
   };
 
   generate.subtype = function(planet) {
