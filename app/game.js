@@ -1,6 +1,8 @@
 define(function (require) {
 
+  var _ = require('lodash');
   var Phaser = require('phaser');
+
 
   var SCREEN_HEIGHT = require('./dimensions').height;
   var SCREEN_WIDTH = require('./dimensions').width;
@@ -17,6 +19,7 @@ define(function (require) {
   var cursors;
   var mouse;
   var touch;
+  var bgTiles = [];
 
   //Actors
   var Galaxy = require('./galaxy');
@@ -48,11 +51,13 @@ define(function (require) {
   }
 
   function create_bg () {
-    var i;
+    var i, ts;
     var image_width = 800;
     var reps = Math.ceil(SCREEN_WIDTH / image_width);
     for ( i = 0; i < reps; i++) {
-       game.add.tileSprite(i * image_width, 0, image_width, 800, 'starfield').fixedToCamera = true;
+      ts = game.add.tileSprite(i * image_width, 0, image_width, 800, 'starfield');
+      ts.fixedToCamera = true;
+      bgTiles.push(ts);
     }
   }
 
@@ -73,6 +78,29 @@ define(function (require) {
 
   }
 
+
+  function scrollBgTile(sprite, x, y){
+    if(x !== 0) {
+      sprite.tilePosition.x += x;
+    }
+
+    if(y !== 0) {
+      sprite.tilePosition.y += y;
+    }
+  }
+
+  function scrollBgLeft () {
+    _.each(bgTiles, function(sprite){
+      scrollBgTile(sprite, -2, 0);
+    });
+  }
+
+  function scrollBgRight (sprite) {
+    _.each(bgTiles, function(sprite){
+      scrollBgTile(sprite, 2, 0);
+    });
+  }
+
   function update () {
 
     //Since as we add planets, we need a larger and larger galaxy
@@ -81,8 +109,10 @@ define(function (require) {
     // Input handling for moving the camera
     if (cursors.left.isDown) {
         game.camera.x -= 8;
+        scrollBgLeft();
     } else if (cursors.right.isDown) {
         game.camera.x += 8;
+        scrollBgRight();
     }
 
     move_camera_by_pointer(mouse);
