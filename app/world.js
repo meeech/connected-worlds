@@ -53,7 +53,7 @@ define(function(require) {
       'population_rating': this.populationRating,
       'population': number.nice(this.population),
       'overpopulated': this.isOverpopulated(),
-      'society_type': this.society.getTypeLabel()
+      'society_type': this.society.getTypeName()
     };
   };
 
@@ -144,6 +144,11 @@ define(function(require) {
 
   };
 
+  /**
+   * TL is an offset from the baseLevel
+   * @param  {int} baseLevel
+   * @return {int}
+   */
   World.prototype.generateTechLevel = function(baseLevel) {
     var TLs = [
       {max: 3, tl: -8},
@@ -166,7 +171,6 @@ define(function(require) {
       return Math.log(value) / Math.LN10;
     };
   }
-
   World.prototype.generatePR = function() {
 
     if(this.population < 1) {

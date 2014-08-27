@@ -21,10 +21,10 @@ define(function (require) {
     return s;
   };
 
-  Society.prototype.getTypeLabel = function() {
-    var s = this.type.label;
+  Society.prototype.getTypeName = function() {
+    var s = this.type.name;
     if(this.type.modifier) {
-      s = s + ' ' + this.type.modifier.label;
+      s = s + ' ' + this.type.modifier.name;
     }
     return s;
   };
@@ -35,66 +35,66 @@ define(function (require) {
       {
         key: 'anarchy',
         max: 6,
-        label: 'Anarchy'
+        name: 'Anarchy'
       },
       {
         key: 'tribal',
         min: 7,
         max: 8,
-        label: 'Tribal'
+        name: 'Tribal'
       },
       {
         key: 'caste',
         min: 9,
         max: 9,
-        label: 'Caste'
+        name: 'Caste'
       },
       {
         key: 'feudal',
         min: 10,
         max: 11,
-        label: 'Feudal'
+        name: 'Feudal'
       },
       {
         key: 'theo',
         min: 12,
         max: 15,
-        label: 'Theocratic'
+        name: 'Theocratic'
       },
       {
         key: 'repdem',
         min: 16,
         max: 18,
-        label: 'Democratic'
+        name: 'Democratic'
       },
       {
         key: 'athdem',
         min: 19,
         max: 20,
-        label: 'Democratic'
+        name: 'Democratic'
       },
       {
         key: 'corp',
         min: 21,
         max: 22,
-        label: 'Corporate'
+        name: 'Corporate'
       },
       {
         key: 'techno',
         min: 23,
         max: 25,
-        label: 'Tehnocratic'
+        name: 'Tehnocratic'
       },
       {
         key: 'caste',
         min: 26,
         max: 27,
-        label: 'Caste'
+        name: 'Caste'
       },
       {
         key: 'anarchy',
         min: 28,
-        label: 'Anarchy'
+        name: 'Anarchy'
       }
     ];
 
@@ -105,36 +105,36 @@ define(function (require) {
       {
         key: 'military',
         max: 8,
-        label: 'Military Government'
+        name: 'Military Government'
       },
       {
         key: 'socialist',
         min: 9,
         max: 12,
-        label: 'Socialist'
+        name: 'Socialist'
       },
       {
         key: 'bureaucracy',
         min: 13,
         max: 14,
-        label: 'Bureaucracy'
+        name: 'Bureaucracy'
       },
       {
         key: 'matriarchy',
         min: 15,
         max: 15,
-        label: 'matriarchy'
+        name: 'matriarchy'
       },
       {
         key: 'utopia',
         min: 16,
         max: 17,
-        label: 'matriarchy'
+        name: 'matriarchy'
       },
       {
         key: 'cyber',
         min: 18,
-        label: 'Cybercracy'
+        name: 'Cybercracy'
       }
 
     ];

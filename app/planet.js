@@ -35,8 +35,8 @@ define(function(require) {
     return this.type.key + ( (this.subtype.key) ?  '-' + this.subtype.key : '' );
   };
 
-  Planet.prototype.getFullTypeLabel = function() {
-    return this.type.label + ( (this.subtype.label) ?  '(' + this.subtype.label + ')' : '' );
+  Planet.prototype.getFullTypeName = function() {
+    return this.type.name + ( (this.subtype.name) ?  '(' + this.subtype.name + ')' : '' );
   };
 
 

@@ -21,25 +21,25 @@ define(function(require) {
         min: 4,
         max: 9,
         key: "barren",
-        label: "Barren"
+        name: "Barren"
       },
       {
         min: 10,
         max: 10,
         key: "desert",
-        label: "Desert"
+        name: "Desert"
       },
       {
         min: 11,
         max: 20,
         key: "garden",
-        label: "Garden"
+        name: "Garden"
       },
       {
         min: 21,
         max: 24,
         key: "hostile",
-        label: "Hostile"
+        name: "Hostile"
       }
     ];
 
@@ -52,10 +52,10 @@ define(function(require) {
     var type = planet.type.key;
     var subtype = {};
 
-    var rock = { key: 'rock', label: 'Rock'};
-    var ice = { key: 'ice', label: 'Ice'};
-    var glacier = { key: 'glacier', label: 'Glacier'};
-    var subgiant = { key: 'subgiant', label: 'Subgiant'};
+    var rock = { key: 'rock', name: 'Rock'};
+    var ice = { key: 'ice', name: 'Ice'};
+    var glacier = { key: 'glacier', name: 'Glacier'};
+    var subgiant = { key: 'subgiant', name: 'Subgiant'};
 
     if(type === 'barren') {
       subtype = (roll(6,3) < 13) ? rock : ice;
@@ -98,11 +98,11 @@ define(function(require) {
 
   generate.resourceValue = function(planet) {
     var rvm = [
-      { min: 3, max: 4, rvm: -2, label: "Very Poor"},
-      { min: 5, max: 7, rvm: -1, label: "Poor"},
-      { min: 8, max: 13, rvm: 0, label: "Average"},
-      { min: 14, max: 16, rvm: 1, label: "Rich"},
-      { min: 17, max: 18, rvm: 2, label: "Very Rich"},
+      { min: 3, max: 4, rvm: -2, name: "Very Poor"},
+      { min: 5, max: 7, rvm: -1, name: "Poor"},
+      { min: 8, max: 13, rvm: 0, name: "Average"},
+      { min: 14, max: 16, rvm: 1, name: "Rich"},
+      { min: 17, max: 18, rvm: 2, name: "Very Rich"},
     ];
 
     return generate.result(roll(6, 3), rvm);
