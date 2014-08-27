@@ -18,9 +18,6 @@ define(function (require) {
   var mouse;
   var touch;
 
-  var draw = require('./draw/index');
-  draw.init(game);
-
   //Actors
   var Galaxy = require('./galaxy');
 
@@ -78,8 +75,10 @@ define(function (require) {
 
   function update () {
 
+    //Since as we add planets, we need a larger and larger galaxy
     game.world.setBounds(0,0, SCREEN_WIDTH + (300*Galaxy.worlds.length) , 400);
 
+    // Input handling for moving the camera
     if (cursors.left.isDown) {
         game.camera.x -= 8;
     } else if (cursors.right.isDown) {
@@ -92,17 +91,17 @@ define(function (require) {
   }
 
   //@todo move pointer/controls out
-  var o_mcamera;
-  function move_camera_by_pointer(o_pointer) {
-    if (!o_pointer.timeDown) { return; }
-    if (o_pointer.isDown && !o_pointer.targetObject) {
-      if (o_mcamera) {
-        game.camera.x += o_mcamera.x - o_pointer.position.x;
-        game.camera.y += o_mcamera.y - o_pointer.position.y;
+  var start_move_point;
+  function move_camera_by_pointer(pointer) {
+    if (!pointer.timeDown) { return; }
+    if (pointer.isDown && !pointer.targetObject) {
+      if (start_move_point) {
+        game.camera.x += start_move_point.x - pointer.position.x;
+        game.camera.y += start_move_point.y - pointer.position.y;
       }
-      o_mcamera = o_pointer.position.clone();
+      start_move_point = pointer.position.clone();
     }
-    if (o_pointer.isUp) { o_mcamera = null; }
+    if (pointer.isUp) { start_move_point = null; }
   }
 
   return game;

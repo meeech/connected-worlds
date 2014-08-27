@@ -1,11 +1,10 @@
 define(function (require) {
 
-  var _game;
+  var game;
   var Phaser = require('phaser');
   var draw = require('./draw/index');
 
-
-  //@todo move dimension into common file
+  var SCREEN_HEIGHT = require('./dimensions').height;
   var SCREEN_HEIGHT_MIDDLE = require('./dimensions').middle_y;
   var SCREEN_WIDTH = require('./dimensions').width;
 
@@ -13,21 +12,19 @@ define(function (require) {
   var World = require('./world');
   var Planet = require('./planet');
 
-  function init(game) {
-    _game = game;
-    draw.init(game);
-    return this;
-  }
-
+  // Where on X axis to place next planet.
   var next_X = 150;
-  var X_step = 300;
-  var yA = 100;
-  var yB = 300;
 
+  // Space between planets
+  var X_step = 300;
+
+  // Y Axis placement of planets to choose from
+  var yA = SCREEN_HEIGHT * 0.25;
+  var yB = SCREEN_HEIGHT * 0.75;
 
   function text(str, size) {
     size = size || 30;
-    var t = _game.add.bitmapText(0, 0, 'carrier_command',str,size);
+    var t = game.add.bitmapText(0, 0, 'carrier_command',str,size);
     return t;
   }
 
@@ -50,7 +47,7 @@ define(function (require) {
     var line = new Phaser.Line();
     line.fromSprite(left, right);
 
-    var graphics = _game.add.graphics(0, 0);
+    var graphics = game.add.graphics(0, 0);
 
     // set a fill and line style
     graphics.beginFill(0x81DAF5);
@@ -119,7 +116,7 @@ define(function (require) {
       world.sprite = sprite;
       sprite.associatedWorld = world;
 
-      var alt_tween = _game.add.tween(alternate_sprite).to(
+      var alt_tween = game.add.tween(alternate_sprite).to(
         { alpha: 0 },
         1000,
         Phaser.Easing.Linear.None,
@@ -130,7 +127,7 @@ define(function (require) {
         s.destroy();
       });
 
-      var s_tween = _game.add.tween(sprite).to(
+      var s_tween = game.add.tween(sprite).to(
         {y: SCREEN_HEIGHT_MIDDLE},
         750,
         Phaser.Easing.Linear.Sinusoidal,
@@ -143,7 +140,7 @@ define(function (require) {
       sprite.events.onInputUp.add(world_click_handler, this);
 
       if(next_X > (SCREEN_WIDTH * 0.75)) {
-        _game.add.tween(_game.camera).to({x: _game.camera.x + X_step}, 900, Phaser.Easing.Linear.Sinusoidal, true);
+        game.add.tween(game.camera).to({x: game.camera.x + X_step}, 900, Phaser.Easing.Linear.Sinusoidal, true);
       }
 
       place_choices();
@@ -179,17 +176,17 @@ define(function (require) {
   }
 
 
-  function start() {
-    //Starts with choice of planet
-
-    place_choices();
-    // place_choices();
-    // place_choices();
-    // place_choices();
-    // place_choices();
+  function init(_game) {
+    game = _game;
+    draw.init(game);
     return this;
   }
 
+  function start() {
+    //Starts with choice of planet
+    place_choices();
+    return this;
+  }
 
   return {
     init: init,
