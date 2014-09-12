@@ -4,6 +4,7 @@ define(function (require) {
   var Phaser = require('phaser');
   var draw = require('./draw/index');
   var roll = require('./dice').roll;
+  var number = require('./number');
 
   var SCREEN_HEIGHT = require('./dimensions').height;
   var SCREEN_HEIGHT_MIDDLE = require('./dimensions').middle_y;
@@ -42,11 +43,10 @@ define(function (require) {
     var right = GALAXY.worlds[numWorlds-1];
     var left = GALAXY.worlds[numWorlds-2];
 
-    var connection = GALAXY.getConnection(right, left);
-    console.log(connection);
+    var connection = GALAXY.getConnection(left, right);
 
     connection.distance = roll('2d6');
-
+console.log(connection);
     return connection;
 
   }
@@ -93,6 +93,7 @@ define(function (require) {
     str.push("type: " + report['class']);
     str.push(report.society_type);
     str.push("tech lvl: " + world.techLevel);
+    str.push("econ: " + number.nice(world.economy.economicVolume));
     var ts = text(str.join("\n\n"), 9);
     ts.multiline = true;
     ts.align = "center";

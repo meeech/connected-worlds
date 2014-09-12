@@ -1,6 +1,7 @@
 define(function (require) {
 
   var GALAXY;
+  var number = require('./number');
 
   var step = function(_galaxy) {
 
@@ -24,21 +25,23 @@ define(function (require) {
 
       calculate_trade(left, current);
 
-      // console.log(i, left,current,right);
-
     }
 
 
   };
 
-
-
   var calculate_trade = function(world_a, world_b) {
 
-    var economy_a, economy_b;
+    var economy_a = world_a.economy,
+        economy_b = world_b.economy;
+
     var connection = GALAXY.getConnection(world_a, world_b);
 
+    var trade_volume = (GALAXY.trade_constant * economy_a.economicVolume * economy_b.economicVolume) / (connection.distance * 100);
 
+    connection.trade_volume = trade_volume;
+
+    console.log(economy_a, number.nice(trade_volume.toFixed(2)));
 
 
   };

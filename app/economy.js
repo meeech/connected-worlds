@@ -4,8 +4,6 @@ define(function (require) {
   var roll = require('./dice').roll;
   var min_max = require('./result').min_max;
 
-  var number = require('./number');
-
   function Economy(World) {
 
     this.world = World;
@@ -76,7 +74,7 @@ define(function (require) {
     }
 
     income = income - (income * prmod);
-    income += _.random(-500, 500);
+    income += roll('1d1000') - 500;
 
     return parseInt(income, 10);
   };

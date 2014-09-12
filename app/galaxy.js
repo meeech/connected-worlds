@@ -1,5 +1,7 @@
 define({
 
+  trade_constant: 0.00000000001,
+
   // base TL for game
   techLevel: 9,
 

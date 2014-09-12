@@ -17,6 +17,10 @@ define(function (require) {
       return value > item.scale;
     });
 
+    if(!scale) {
+      return 0;
+    }
+
     var nice = (value/scale.scale).toFixed(2);
     return nice + scale.abbr;
 
