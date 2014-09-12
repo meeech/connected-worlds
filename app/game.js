@@ -3,18 +3,23 @@ define(function (require) {
   var _ = require('lodash');
   var Phaser = require('phaser');
 
-
   var SCREEN_HEIGHT = require('./dimensions').height;
   var SCREEN_WIDTH = require('./dimensions').width;
 
-  var game = new Phaser.Game(SCREEN_WIDTH, SCREEN_HEIGHT, Phaser.AUTO, '', {
+  var gameConfig = {
+    width: SCREEN_WIDTH,
+    height: SCREEN_HEIGHT,
+    renderer: Phaser.AUTO,
+    antialias: false,
+    state: {
       preload: preload,
       create: create,
       update: update
     },
-    false,
-    false
-  );
+    seed: ['not', 'so', 'random']
+  };
+
+  var game = new Phaser.Game(gameConfig);
 
   var cursors;
   var mouse;
@@ -46,7 +51,6 @@ define(function (require) {
     game.load.image('starfield', 'img/pixel/star-bg.png');
 
     game.load.bitmapFont('carrier_command', 'fonts/carrier_command.png', 'fonts/carrier_command.xml');
-
 
   }
 

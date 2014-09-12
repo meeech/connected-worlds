@@ -4,6 +4,7 @@ define(function(require, exports, module) {
   var random = Math.random;
   var floor = Math.floor;
 
+  // @todo replace with phaser.rnd
   var die = function(sides) {
     return 1 + floor(random() * sides);
   };
