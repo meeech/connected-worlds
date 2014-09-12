@@ -1,4 +1,4 @@
-define(function (require) {
+define(function (require, exports) {
 
   var _ = require('lodash');
   var Phaser = require('phaser');
@@ -20,6 +20,8 @@ define(function (require) {
   };
 
   var game = new Phaser.Game(gameConfig);
+
+  require('./dice').init(game);
 
   var cursors;
   var mouse;
@@ -138,6 +140,6 @@ define(function (require) {
     if (pointer.isUp) { start_move_point = null; }
   }
 
-  return game;
+  exports.game = game;
 
 });

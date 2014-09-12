@@ -1,13 +1,17 @@
 define(function(require, exports, module) {
 
   var dice = {};
-  var random = Math.random;
-  var floor = Math.floor;
+  var rnd;
+
+  dice.init = function init(game) {
+    rnd = game.rnd;
+  };
 
   // @todo replace with phaser.rnd
   var die = function(sides) {
-    return 1 + floor(random() * sides);
+    return rnd.between(1, sides);
   };
+
 
   /**
    *
