@@ -3,6 +3,7 @@ define(function (require) {
   var game;
   var Phaser = require('phaser');
   var draw = require('./draw/index');
+  var roll = require('./dice').roll;
 
   var SCREEN_HEIGHT = require('./dimensions').height;
   var SCREEN_HEIGHT_MIDDLE = require('./dimensions').middle_y;
@@ -28,6 +29,27 @@ define(function (require) {
     return t;
   }
 
+
+  // Takes the latest planet, and calculates some connection data between it and its left neighbour
+  function connect_world() {
+
+    var numWorlds = GALAXY.worlds.length;
+    if(numWorlds < 2) {
+      // console.log('No neighbours');
+      return;
+    }
+
+    var right = GALAXY.worlds[numWorlds-1];
+    var left = GALAXY.worlds[numWorlds-2];
+
+    var connection = GALAXY.getConnection(right, left);
+    console.log(connection);
+
+    connection.distance = roll('2d6');
+
+    return connection;
+
+  }
 
   function attach_to_neighbour() {
 
@@ -97,6 +119,7 @@ define(function (require) {
       reportSprite.x = sprite.x - (reportSprite.width * 0.5);
       reportSprite.y = titleSprite.y + titleSprite.height + 20;
       sprite.reportSprite = reportSprite;
+      console.log(world);
     }
   }
 
@@ -115,6 +138,8 @@ define(function (require) {
       var world = new World(GALAXY, planet);
       world.sprite = sprite;
       sprite.associatedWorld = world;
+
+      connect_world();
 
       var alt_tween = game.add.tween(alternate_sprite).to(
         { alpha: 0 },
@@ -142,6 +167,8 @@ define(function (require) {
       if(next_X > (SCREEN_WIDTH * 0.75)) {
         game.add.tween(game.camera).to({x: game.camera.x + X_step}, 900, Phaser.Easing.Linear.Sinusoidal, true);
       }
+
+      require('./step')(GALAXY);
 
       place_choices();
     };

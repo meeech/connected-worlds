@@ -1,4 +1,4 @@
-define(function(require) {
+define(function(require, exports) {
   /**
    * World
    *
@@ -15,6 +15,8 @@ define(function(require) {
   var Society = require('./society');
   var Economy = require('./economy');
 
+  var game = require('./game');
+
   /**
    * Create a new world in the Galaxy
    * @param {obj} Galaxy
@@ -23,7 +25,7 @@ define(function(require) {
   var World = function World(Galaxy, planet){
 
     this.galaxy = Galaxy;
-
+    this.uuid = game.game.rnd.uuid();
     this.planet = planet || new Planet();
 
     this.name = require('./name').planet();
